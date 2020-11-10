@@ -1,0 +1,10 @@
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\bin\Debug\Contact List.exe.config
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\bin\Debug\Contact List.exe
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\bin\Debug\Contact List.pdb
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\obj\Debug\Contact List.csprojAssemblyReference.cache
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\obj\Debug\Contact_List.Properties.Resources.resources
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\obj\Debug\Contact List.csproj.GenerateResource.cache
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\obj\Debug\Contact List.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\obj\Debug\Contact List.exe
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\obj\Debug\Contact List.pdb
+C:\Users\Gabriel\Documents\CNED\BLOC_1\C#\Contact-List-GUI\Contact List\Contact List\obj\Debug\Contact_List.ContactList.resources
