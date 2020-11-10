@@ -39,6 +39,7 @@ namespace Contact_List
             txtNumber.Enabled = true;
             lblName.Enabled = true;
             lblNumber.Enabled = true;
+            lstContacts.SelectedIndex = -1;
             imgProfile.Image = Properties.Resources.rhodes;
             txtName.Focus();
         }
@@ -229,19 +230,26 @@ namespace Contact_List
         //Checks if the selected contact has changed, and if so, changes the picture to match the contact.
         private void lstContacts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = lstContacts.SelectedIndex;
-            Contact selectedContact = allContacts[index];
             if (lstContacts.SelectedIndex != -1)
             {
+                int index = lstContacts.SelectedIndex;
+                Contact selectedContact = allContacts[index];
                 imgProfile.Image = selectedContact.getPhoto();
+                
             }
             else
             {
-                // affiche une image vide
                 BlankPhoto();
             }
+
         }
 
-
+        private void txtNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnAdd_Click(null, null);
+            }
+        }
     }
 }
