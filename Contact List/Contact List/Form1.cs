@@ -56,6 +56,7 @@ namespace Contact_List
             btnPicture.Visible = false;
             btnAdd.Enabled = false;
             btnCancel.Enabled = false;
+            btnGoBack.Visible = false;
             txtName.Enabled = false;
             txtNumber.Enabled = false;
             lblName.Enabled = false;
@@ -63,7 +64,129 @@ namespace Contact_List
             imgProfile.Image = Properties.Resources.rhodes;
             txtName.Text = "";
             txtNumber.Text = "";
+            txtSearch.Text = "";
             grpNewContact.Text = "New Contact";
+        }
+
+        //Funcion that tracks the corresponding object and deletes it
+        private void Deleter()
+        {
+            int index = lstContacts.SelectedIndex;
+            int indexContact = -1;
+            bool foundDeleted = false;
+            foreach (Contact contact in personalContacts)
+            {
+                indexContact++;
+                if (lstContacts.SelectedItem.ToString().Contains(contact.getNom()) && lstContacts.SelectedItem.ToString().Contains(contact.getTel()))
+                {
+                    personalContacts.RemoveAt(indexContact);
+                    foundDeleted = true;
+                    break;
+                }
+            }
+            if (foundDeleted == false)
+            {
+                indexContact = -1;
+                foreach (Contact contact in professionalContacts)
+                {
+                    indexContact++;
+                    if (lstContacts.SelectedItem.ToString().Contains(contact.getNom()) && lstContacts.SelectedItem.ToString().Contains(contact.getTel()))
+                    {
+                        professionalContacts.RemoveAt(indexContact);
+                        foundDeleted = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                foundDeleted = false;
+            }
+        }
+
+
+        //Funcion that tracks the corresponding object and uses it for reference in modification
+        private void Modifier()
+        {
+            int index = lstContacts.SelectedIndex;
+            int indexContact = -1;
+            bool foundDeleted = false;
+            foreach (Contact contact in personalContacts)
+            {
+                indexContact++;
+                if (lstContacts.SelectedItem.ToString().Contains(contact.getNom()) && lstContacts.SelectedItem.ToString().Contains(contact.getTel()))
+                {
+
+                    foundDeleted = true;
+                    txtName.Text = contact.getNom();
+                    rbtnPersonal.Checked = true;
+                    txtNumber.Text = contact.getTel();
+                    imgProfile.Image = contact.getPhoto();
+                    break;
+                }
+            }
+            if (foundDeleted == false)
+            {
+                foreach (Contact contact in professionalContacts)
+                {
+                    indexContact++;
+                    if (lstContacts.SelectedItem.ToString().Contains(contact.getNom()) && lstContacts.SelectedItem.ToString().Contains(contact.getTel()))
+                    {
+                        foundDeleted = true;
+                        txtName.Text = contact.getNom();
+                        rbtnProfessional.Checked = true;
+                        txtNumber.Text = contact.getTel();
+                        imgProfile.Image = contact.getPhoto();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                foundDeleted = false;
+            }
+        }
+
+
+        //Funcion that searches an item based on specific criteria
+        private void Search()
+        {
+            List<String> Findings = new List<String>();
+            if (rbtnByName.Checked)
+            {
+                foreach(String item in lstContacts.Items)
+                {
+                    if (item.Contains(txtSearch.Text))
+                    {
+                        Findings.Add(item);
+                    }
+                }
+            }
+            if (rbtnByNumber.Checked)
+            {
+                foreach (String item in lstContacts.Items)
+                {
+                    if (item.Contains(txtSearch.Text))
+                    {
+                        Findings.Add(item);
+                    }
+                }
+            }
+            if (Findings.Count() != 0)
+            {
+                lstContacts.Items.Clear();
+                foreach(String item in Findings)
+                {
+                    lstContacts.Items.Add(item);
+                }
+                Resetter();
+                lstContacts.SelectedIndex = 0;
+                btnGoBack.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show(txtSearch.Text + " wasn't found on the search.");
+            }
         }
 
 
@@ -103,13 +226,14 @@ namespace Contact_List
                 allContacts.Add(contact);
                 lstContacts.Items.Add(contact.StringName());
             }
+            Serialise.Save(personalSave, personalContacts);
             foreach (Contact contact in professionalContacts)
             {
                 allContacts.Add(contact);
                 lstContacts.Items.Add(contact.StringName());
             }
-            Serialise.Save(personalSave, personalContacts);
             Serialise.Save(professionalSave, professionalContacts);
+
         }
 
 
@@ -152,31 +276,12 @@ namespace Contact_List
         {
             if (lstContacts.SelectedIndex != -1)
             {
-
-                NewContactVisibility();
-                grpNewContact.Text = "Insert Modifications";
                 int index = lstContacts.SelectedIndex;
-                Contact selectedContact = allContacts[index];
-                if (selectedContact.getCategory() == "Personal")
-                {
-                    personalContacts.RemoveAt(index);
-                }
-                else
-                {
-                    professionalContacts.RemoveAt(index - personalContacts.Count());
-                }
-                txtName.Text = selectedContact.getNom();
-                if (selectedContact.getCategory() == "Personal")
-                {
-                    rbtnPersonal.Checked = true; 
-                }
-                else
-                {
-                    rbtnProfessional.Checked = true;
-                }
-                txtNumber.Text = selectedContact.getTel();
-                imgProfile.Image = selectedContact.getPhoto();
-                
+                grpNewContact.Text = "Insert Modifications";
+                Modifier();
+                Deleter();
+                NewContactVisibility();
+                lstContacts.SelectedIndex = index;
             }
         }
 
@@ -184,17 +289,25 @@ namespace Contact_List
         //Deletes selected contact
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int index = lstContacts.SelectedIndex;
-            Contact selectedContact = allContacts[index];
-            if (selectedContact.getCategory() == "Personal")
+            if(lstContacts.SelectedIndex != -1)
             {
-                personalContacts.RemoveAt(index);
+                Deleter();
+                UpdateListbox();
+            }
+        }
+
+
+        //Searches contact list based on specific criteria
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (txtSearch.Text != "")
+            {
+                Search();
             }
             else
             {
-                professionalContacts.RemoveAt(index - personalContacts.Count());
+                MessageBox.Show("Insert a valid entry.");
             }
-            UpdateListbox();
         }
 
 
@@ -232,9 +345,14 @@ namespace Contact_List
         {
             if (lstContacts.SelectedIndex != -1)
             {
-                int index = lstContacts.SelectedIndex;
-                Contact selectedContact = allContacts[index];
-                imgProfile.Image = selectedContact.getPhoto();
+                foreach(Contact contact in allContacts)
+                {
+                    if(lstContacts.SelectedItem.ToString().Contains(contact.getNom()) && lstContacts.SelectedItem.ToString().Contains(contact.getTel()))
+                    {
+                        imgProfile.Image = contact.getPhoto();
+                        break;
+                    }
+                }
                 
             }
             else
@@ -244,12 +362,47 @@ namespace Contact_List
 
         }
 
+
+        //Allows enter key to be used as input besides the Add button
         private void txtNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
                 btnAdd_Click(null, null);
             }
+        }
+
+
+
+        //Allows enter key to be used as input besides the Search button
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                Search();
+            }
+        }
+
+
+        //Allows user to return to previous screen after doing a search
+        private void btnGoBack_Click(object sender, EventArgs e)
+        {
+            btnGoBack.Visible = false;
+            Resetter();
+            UpdateListbox();
+        }
+
+
+        //Checks if the radio button in the search groupbox is checked, and changes the label accordingly
+        private void rbtnByNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            lblNameNumber.Text = "Number:";
+        }
+
+        //Checks if the radio button in the search groupbox is checked, and changes the label accordingly
+        private void rbtnByName_CheckedChanged(object sender, EventArgs e)
+        {
+            lblNameNumber.Text = "Name:";
         }
     }
 }

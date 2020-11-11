@@ -45,9 +45,17 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.lstContacts = new System.Windows.Forms.ListBox();
             this.btnPicture = new System.Windows.Forms.Button();
+            this.grpSearch = new System.Windows.Forms.GroupBox();
+            this.lblNameNumber = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.rbtnByNumber = new System.Windows.Forms.RadioButton();
+            this.rbtnByName = new System.Windows.Forms.RadioButton();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnGoBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imgProfile)).BeginInit();
             this.grpNewContact.SuspendLayout();
             this.grpContacts.SuspendLayout();
+            this.grpSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgProfile
@@ -173,6 +181,7 @@
             // 
             // grpContacts
             // 
+            this.grpContacts.Controls.Add(this.btnGoBack);
             this.grpContacts.Controls.Add(this.btnModify);
             this.grpContacts.Controls.Add(this.btnDelete);
             this.grpContacts.Controls.Add(this.lstContacts);
@@ -224,11 +233,89 @@
             this.btnPicture.Visible = false;
             this.btnPicture.Click += new System.EventHandler(this.btnPicture_Click);
             // 
+            // grpSearch
+            // 
+            this.grpSearch.Controls.Add(this.lblNameNumber);
+            this.grpSearch.Controls.Add(this.txtSearch);
+            this.grpSearch.Controls.Add(this.rbtnByNumber);
+            this.grpSearch.Controls.Add(this.rbtnByName);
+            this.grpSearch.Controls.Add(this.btnSearch);
+            this.grpSearch.Location = new System.Drawing.Point(197, 345);
+            this.grpSearch.Name = "grpSearch";
+            this.grpSearch.Size = new System.Drawing.Size(257, 58);
+            this.grpSearch.TabIndex = 6;
+            this.grpSearch.TabStop = false;
+            this.grpSearch.Text = "Search";
+            // 
+            // lblNameNumber
+            // 
+            this.lblNameNumber.AutoSize = true;
+            this.lblNameNumber.Location = new System.Drawing.Point(80, 16);
+            this.lblNameNumber.Name = "lblNameNumber";
+            this.lblNameNumber.Size = new System.Drawing.Size(38, 13);
+            this.lblNameNumber.TabIndex = 4;
+            this.lblNameNumber.Text = "Name:";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(83, 30);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(100, 20);
+            this.txtSearch.TabIndex = 3;
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
+            // 
+            // rbtnByNumber
+            // 
+            this.rbtnByNumber.AutoSize = true;
+            this.rbtnByNumber.Location = new System.Drawing.Point(6, 35);
+            this.rbtnByNumber.Name = "rbtnByNumber";
+            this.rbtnByNumber.Size = new System.Drawing.Size(77, 17);
+            this.rbtnByNumber.TabIndex = 2;
+            this.rbtnByNumber.Text = "By Number";
+            this.rbtnByNumber.UseVisualStyleBackColor = true;
+            this.rbtnByNumber.CheckedChanged += new System.EventHandler(this.rbtnByNumber_CheckedChanged);
+            // 
+            // rbtnByName
+            // 
+            this.rbtnByName.AutoSize = true;
+            this.rbtnByName.Checked = true;
+            this.rbtnByName.Location = new System.Drawing.Point(6, 18);
+            this.rbtnByName.Name = "rbtnByName";
+            this.rbtnByName.Size = new System.Drawing.Size(68, 17);
+            this.rbtnByName.TabIndex = 1;
+            this.rbtnByName.TabStop = true;
+            this.rbtnByName.Text = "By Name";
+            this.rbtnByName.UseVisualStyleBackColor = true;
+            this.rbtnByName.CheckedChanged += new System.EventHandler(this.rbtnByName_CheckedChanged);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(189, 26);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(68, 26);
+            this.btnSearch.TabIndex = 0;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnGoBack
+            // 
+            this.btnGoBack.BackColor = System.Drawing.SystemColors.Menu;
+            this.btnGoBack.Location = new System.Drawing.Point(40, 289);
+            this.btnGoBack.Name = "btnGoBack";
+            this.btnGoBack.Size = new System.Drawing.Size(66, 38);
+            this.btnGoBack.TabIndex = 4;
+            this.btnGoBack.Text = "Go Back";
+            this.btnGoBack.UseVisualStyleBackColor = false;
+            this.btnGoBack.Visible = false;
+            this.btnGoBack.Click += new System.EventHandler(this.btnGoBack_Click);
+            // 
             // ContactList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 406);
+            this.Controls.Add(this.grpSearch);
             this.Controls.Add(this.btnPicture);
             this.Controls.Add(this.grpContacts);
             this.Controls.Add(this.grpNewContact);
@@ -242,6 +329,8 @@
             this.grpNewContact.ResumeLayout(false);
             this.grpNewContact.PerformLayout();
             this.grpContacts.ResumeLayout(false);
+            this.grpSearch.ResumeLayout(false);
+            this.grpSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -264,6 +353,13 @@
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnPicture;
+        private System.Windows.Forms.GroupBox grpSearch;
+        private System.Windows.Forms.RadioButton rbtnByNumber;
+        private System.Windows.Forms.RadioButton rbtnByName;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label lblNameNumber;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnGoBack;
     }
 }
 
